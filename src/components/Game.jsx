@@ -46,21 +46,17 @@ export default class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    const moves = history.map((step, move) => {
-      const desc = move ? 'Go to move #' + move : 'Go to game start';
-      return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
-        </li>
-      );
-    });
+    const moves = history.map((step, move) => (
+      <li key={move}>
+        <button onClick={() => this.jumpTo(move)}>
+          {move ? 'Go to move #' + move : 'Go to game start'}
+        </button>
+      </li>
+    ));
 
-    let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
+    const status = winner
+      ? 'Winner: ' + winner
+      : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
 
     return (
       <div className="game">
